@@ -127,6 +127,17 @@ class VendaController
 
         return res.status(200).json({saida: vendaEncontrada})
     }
+
+    static async pegarTodos(req, res)
+    {
+        let output = await VendaModel.findAll();
+        if(!output || output.length <=0)
+        {
+            return res.status(400).json({erro: true, msg: "Não foi possível encontrar vendas"})
+        }
+
+        return res.status(200).json({output});
+    }
 }
 
 module.exports = VendaController;
