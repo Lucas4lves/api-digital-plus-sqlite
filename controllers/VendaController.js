@@ -44,11 +44,6 @@ class VendaController
             return res.status(400).json({erro: true, msg: "O campo canal não pode estar vazio"})
         }
 
-        if(status_pagamento == "")
-        {
-            return res.status(400).json({erro: true, msg: "O campo status pagamento não pode estar vazio"})
-        }
-
         if(!valor_recebido || valor_recebido.length <= 0)
         {
             return res.status(400).json({erro: true, msg: "O campo valor recebido não pode estar vazio"})
