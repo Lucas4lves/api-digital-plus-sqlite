@@ -2,7 +2,7 @@ const db = require("../db");
 const { Sequelize } = require("sequelize");
 
 const Venda = db.define("venda", {
-    id: {type: Sequelize.INTEGER, primaryKey:true},
+    id: {type: Sequelize.INTEGER, primaryKey:true, autoIncrement: true},
     data_de_criacao: {
         type: Sequelize.DATE,
         allowNull: false,
