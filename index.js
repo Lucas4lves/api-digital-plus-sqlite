@@ -31,6 +31,10 @@ const AdminRoute = require("./routes/AdminRoute");
 
 app.use("/servico", ServicoRoute);
 app.use("/admin", AdminRoute);
+app.use("/", (req, res)=>{
+    res.write("Oi");
+    res.end;
+})
 
 
 app.listen(process.env.PORT || 3232, ()=>{
