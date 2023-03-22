@@ -28,14 +28,11 @@ connect();
 
 const ServicoRoute = require("./routes/ServicoRoute");
 const AdminRoute = require("./routes/AdminRoute");
+const VendaRoute = require("./routes/VendaRoute");
 
 app.use("/servico", ServicoRoute);
 app.use("/admin", AdminRoute);
-app.use("/", (req, res)=>{
-    res.write("Oi");
-    res.end;
-})
-
+app.use("/vendas", VendaRoute);
 
 app.listen(process.env.PORT || 3232, ()=>{
     console.log(`App rodando na porta ${process.env.PORT}`);
