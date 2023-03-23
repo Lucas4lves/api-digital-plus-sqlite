@@ -5,7 +5,7 @@ class ServicoController
     static async cadastrar(req, res)
     {
         let {tipo} = req.body;
-        if(!tipo || tipo.length <= 0)
+        if(!tipo || tipo.length <= 0 || typeof tipo != 'string')
         {
             return res.status(400).json({
                 error: true, 
