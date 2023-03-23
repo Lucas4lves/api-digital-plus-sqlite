@@ -22,7 +22,7 @@ module.exports = class ParceiroController
 
     static async editar(req, res)
     {
-        let {pk} = req.body;
+        let {pk, nome} = req.body;
 
         if(!pk || pk.length <= 0)
         {
@@ -41,6 +41,8 @@ module.exports = class ParceiroController
                 msg: "Não foi possível encontrar um parceiro com essa chave"
             })
         }
+
+        saida.nome = nome;
         return res.status(200).json({saida: saida});
     }
 
