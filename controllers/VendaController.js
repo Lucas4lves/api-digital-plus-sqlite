@@ -1,4 +1,5 @@
 const VendaModel = require("../models/Venda");
+const { formatarData, pegarVariaveisDeData, calcularLucro } = require("../utils/utils");
 
 class VendaController
 {
@@ -64,25 +65,6 @@ class VendaController
             return res.status(400).json({erro: true, msg: "O campo parceiro não pode estar vazio"})
         }
 
-        const formatarData = (data) => {
-            let [dia, mes, ano] = data.split("/");
-
-            return new Date(`${ano}/${mes}/${dia}`);
-        }
-
-        const pegarVariaveisDeData = (data) => {
-            let [dia, mes, ano] = data.split("/");
-            return {dia, mes, ano};
-        }
-
-        const calcularLucro = (recebido, custo) => {
-            let r = Number(recebido);
-            let c = Number(custo);
-
-            return (r - c).toFixed(2);
-        }
-
-
         let dataCriacaoFrag = pegarVariaveisDeData(data_de_criacao);
         let dataEncerramentoFrag = pegarVariaveisDeData(data_de_encerramento);
 
@@ -126,6 +108,60 @@ class VendaController
         await vendaEncontrada.destroy()
 
         return res.status(200).json({saida: vendaEncontrada})
+    }
+
+    static async editar(req, res)
+    {
+        let {
+            pk, 
+            data_de_criacao,
+            data_de_encerramento,
+            nome_cliente,
+            nb,
+            canal,
+            status_pagamento,
+            status_pedido,
+            valor_recebido,
+            custo,
+            tipo,
+            parceiro,
+            observacoes
+        } = req.body;
+ 
+        let registroEditado = await VendaModel.findByPk(pk);
+        
+        let dataCriacaoFrag = pegarVariaveisDeData(data_de_criacao);
+        let dataEncerramentoFrag = pegarVariaveisDeData(data_de_encerramento);
+
+
+        if(!registroEditado || registroEditado.length <= 0)
+        {
+            return res.status(400).json({erro: true, msg: "Não foi possível encontrar uma venda com esse id"});
+        }
+            registroEditado.set({
+            data_de_criacao: formatarData(data_de_criacao),
+            data_de_encerramento: formatarData(data_de_encerramento),
+            dia_criacao:dataCriacaoFrag.dia || "",
+            mes_criacao: dataCriacaoFrag.mes || "",
+            ano_criacao: dataCriacaoFrag.ano || "",
+            dia_encerramento: dataEncerramentoFrag.dia || "",
+            mes_encerramento: dataEncerramentoFrag.mes || "",
+            ano_encerramento: dataEncerramentoFrag.ano || "", 
+            nome_cliente,
+            nb,
+            canal,
+            status_pagamento,
+            status_pedido,
+            valor_recebido,
+            custo,
+            tipo,
+            parceiro,
+            observacoes
+        })
+       
+        await registroEditado.save();
+
+        return res.status(200).json({registroEditado});
     }
 
     static async pegarTodos(req, res)
