@@ -154,6 +154,7 @@ class VendaController
             status_pedido,
             valor_recebido,
             custo,
+            lucro: calcularLucro(valor_recebido, custo),
             tipo,
             parceiro,
             observacoes
@@ -173,27 +174,6 @@ class VendaController
         }
 
         return res.status(200).json({output});
-    }
-
-    static async editar(req, res)
-    {
-        let r = req.body;
-
-        let vendaEncontrada = await VendaModel.findByPk(r.id);
-
-        const editarVenda = (venda, req, ...chaves) => {
-            let vendaEditada = venda;
-            for(let chave in chaves)
-            {
-                vendaEditada.chave = req[chave];  
-            }
-            return vendaEditada;
-        }
-
-        let output = editarVenda(vendaEncontrada, r, Object.keys(r));
-
-        return res.json({teste: 'teste'});       
-
     }
 
 }
