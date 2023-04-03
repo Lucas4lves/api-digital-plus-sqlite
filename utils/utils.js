@@ -16,6 +16,16 @@ const calcularLucro = (recebido, custo) => {
             return (r - c).toFixed(2);
         }
 
+
+const deIso = (data) => {
+    let locale = new Date(data)
+                    .toLocaleDateString();
+    let [dia, mes, ano] = locale.split("/");
+
+    return `${dia}/${mes}/${ano}`
+
+}
+
 module.exports = {
-    formatarData, pegarVariaveisDeData, calcularLucro
+    formatarData, pegarVariaveisDeData, calcularLucro, deIso
 }

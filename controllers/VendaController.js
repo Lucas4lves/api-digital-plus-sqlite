@@ -1,5 +1,5 @@
 const VendaModel = require("../models/Venda");
-const { formatarData, pegarVariaveisDeData, calcularLucro } = require("../utils/utils");
+const { formatarData, pegarVariaveisDeData, calcularLucro, deIso } = require("../utils/utils");
 
 class VendaController
 {
@@ -24,12 +24,7 @@ class VendaController
         {
             return res.status(400).json({erro: true, msg: "O campo data de criação não pode estar vazio"})
         }
-       
-        if(!data_de_encerramento || data_de_encerramento.length <= 0)
-        {
-            return res.status(400).json({erro: true, msg: "O campo data de encerramento não pode estar vazio"})
-        }
-
+        
         if(!nome_cliente|| nome_cliente.length <= 0)
         {
             return res.status(400).json({erro: true, msg: "O campo nome do cliente não pode estar vazio"})
@@ -130,17 +125,18 @@ class VendaController
  
         let registroEditado = await VendaModel.findByPk(pk);
         
-        let dataCriacaoFrag = pegarVariaveisDeData(data_de_criacao);
-        let dataEncerramentoFrag = pegarVariaveisDeData(data_de_encerramento);
+        let dataCriacaoFrag = deIso(data_de_criacao);
+        let dataEncerramentoFrag = deIso(data_de_encerramento);
 
-
+        console.log(dataCriacaoFrag);
+        console.log(dataEncerramentoFrag);
         if(!registroEditado || registroEditado.length <= 0)
         {
             return res.status(400).json({erro: true, msg: "Não foi possível encontrar uma venda com esse id"});
         }
             registroEditado.set({
-            data_de_criacao: formatarData(data_de_criacao),
-            data_de_encerramento: formatarData(data_de_encerramento),
+            data_de_criacao: data_de_criacao,
+            data_de_encerramento: formatarData(dataEncerramentoFrag),
             dia_criacao:dataCriacaoFrag.dia || "",
             mes_criacao: dataCriacaoFrag.mes || "",
             ano_criacao: dataCriacaoFrag.ano || "",
