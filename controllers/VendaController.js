@@ -25,6 +25,7 @@ class VendaController
             return res.status(400).json({erro: true, msg: "O campo data de criação não pode estar vazio"})
         }
         
+
         if(!nome_cliente|| nome_cliente.length <= 0)
         {
             return res.status(400).json({erro: true, msg: "O campo nome do cliente não pode estar vazio"})
@@ -64,8 +65,8 @@ class VendaController
         let dataEncerramentoFrag = pegarVariaveisDeData(data_de_encerramento);
 
         let output = await VendaModel.create({
-            data_de_criacao: formatarData(data_de_criacao),
-            data_de_encerramento: formatarData(data_de_encerramento),
+            data_de_criacao: data_de_criacao,
+            data_de_encerramento: data_de_encerramento,
             dia_criacao:dataCriacaoFrag.dia || "",
             mes_criacao: dataCriacaoFrag.mes || "",
             ano_criacao: dataCriacaoFrag.ano || "",
@@ -123,23 +124,25 @@ class VendaController
             observacoes
         } = req.body;
  
-        let registroEditado = await VendaModel.findByPk(pk);
+        let registroEditado = await VendaModel.findByPk(pk); 
         
+        // const isLocale = (data) => {
+        //     const regex = new RegExp("^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$", "i");
+        //     return regex.test(data);
+        // }
+
         let dataCriacaoFrag = deIso(data_de_criacao);
         let dataEncerramentoFrag = deIso(data_de_encerramento);
-
         console.log(dataCriacaoFrag);
         console.log(dataEncerramentoFrag);
-        if(!registroEditado || registroEditado.length <= 0)
-        {
-            return res.status(400).json({erro: true, msg: "Não foi possível encontrar uma venda com esse id"});
-        }
+        console.log(isLocale(dataCriacaoFrag));
+        console.log(isLocale(dataEncerramentoFrag)); 
             registroEditado.set({
-            data_de_criacao: data_de_criacao,
+            data_de_criacao: formatarData(dataCriacaoFrag),
             data_de_encerramento: formatarData(dataEncerramentoFrag),
-            dia_criacao:dataCriacaoFrag.dia || "",
-            mes_criacao: dataCriacaoFrag.mes || "",
-            ano_criacao: dataCriacaoFrag.ano || "",
+            dia_criacao:dataCriacaoFrag.split("/")[0],
+            mes_criacao: dataCriacaoFrag.split("/")[1],
+            ano_criacao: dataCriacaoFrag.split("/")[2],
             dia_encerramento: dataEncerramentoFrag.dia || "",
             mes_encerramento: dataEncerramentoFrag.mes || "",
             ano_encerramento: dataEncerramentoFrag.ano || "", 
