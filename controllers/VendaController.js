@@ -1,5 +1,7 @@
 const VendaModel = require("../models/Venda");
 const { formatarData, pegarVariaveisDeData, calcularLucro, deIso } = require("../utils/utils");
+const dayjs = require("dayjs");
+
 
 class VendaController
 {
@@ -65,8 +67,8 @@ class VendaController
         let dataEncerramentoFrag = pegarVariaveisDeData(data_de_encerramento);
 
         let output = await VendaModel.create({
-            data_de_criacao: data_de_criacao,
-            data_de_encerramento: data_de_encerramento,
+            data_de_criacao: formatarData(data_de_criacao),
+            data_de_encerramento: formatarData(data_de_encerramento),
             dia_criacao:dataCriacaoFrag.dia || "",
             mes_criacao: dataCriacaoFrag.mes || "",
             ano_criacao: dataCriacaoFrag.ano || "",
@@ -125,27 +127,19 @@ class VendaController
         } = req.body;
  
         let registroEditado = await VendaModel.findByPk(pk); 
-        
-        // const isLocale = (data) => {
-        //     const regex = new RegExp("^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$", "i");
-        //     return regex.test(data);
-        // }
 
-        let dataCriacaoFrag = deIso(data_de_criacao);
-        let dataEncerramentoFrag = deIso(data_de_encerramento);
-        console.log(dataCriacaoFrag);
-        console.log(dataEncerramentoFrag);
-        console.log(isLocale(dataCriacaoFrag));
-        console.log(isLocale(dataEncerramentoFrag)); 
+
+            console.log(data_de_criacao, data_de_encerramento);
+
             registroEditado.set({
-            data_de_criacao: formatarData(dataCriacaoFrag),
-            data_de_encerramento: formatarData(dataEncerramentoFrag),
-            dia_criacao:dataCriacaoFrag.split("/")[0],
-            mes_criacao: dataCriacaoFrag.split("/")[1],
-            ano_criacao: dataCriacaoFrag.split("/")[2],
-            dia_encerramento: dataEncerramentoFrag.dia || "",
-            mes_encerramento: dataEncerramentoFrag.mes || "",
-            ano_encerramento: dataEncerramentoFrag.ano || "", 
+            data_de_criacao: formatarData(data_de_criacao),
+            data_de_encerramento: formatarData(data_de_encerramento),
+            dia_criacao:data_de_criacao.split("/")[0],
+            mes_criacao: data_de_criacao.split("/")[1],
+            ano_criacao: data_de_criacao.split("/")[2],
+            dia_encerramento: data_de_encerramento.split("/")[0] || "",
+            mes_encerramento: data_de_encerramento.split("/")[1]|| "",
+            ano_encerramento: data_de_encerramento.split("/")[2] || "", 
             nome_cliente,
             nb,
             canal,
