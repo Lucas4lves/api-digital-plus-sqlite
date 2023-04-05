@@ -9,7 +9,7 @@ const Venda = db.define("venda", {
     },
     data_de_encerramento:{
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: true,
     },
     dia_criacao:{
         type: Sequelize.STRING,

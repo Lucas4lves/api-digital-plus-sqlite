@@ -18,6 +18,7 @@ app.use((req, res, next) =>{
 const connect = async () =>{
     try{
         await sequelize.authenticate();
+        await sequelize.sync()
         console.log("Conectado, otário"); 
     }catch(err){
         console.log(err);

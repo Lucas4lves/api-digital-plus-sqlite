@@ -69,7 +69,7 @@ class VendaController
         let output = await VendaModel.create({
             data_de_criacao: formatarData(data_de_criacao),
             data_de_encerramento: formatarData(data_de_encerramento),
-            dia_criacao:dataCriacaoFrag.dia || "",
+            dia_criacao: dataCriacaoFrag.dia || "",
             mes_criacao: dataCriacaoFrag.mes || "",
             ano_criacao: dataCriacaoFrag.ano || "",
             dia_encerramento: dataEncerramentoFrag.dia || "",
@@ -112,7 +112,6 @@ class VendaController
     {
         let {
             pk, 
-            data_de_criacao,
             data_de_encerramento,
             nome_cliente,
             nb,
@@ -132,7 +131,6 @@ class VendaController
             console.log(data_de_criacao, data_de_encerramento);
 
             registroEditado.set({
-            data_de_criacao: formatarData(data_de_criacao),
             data_de_encerramento: formatarData(data_de_encerramento),
             dia_criacao:data_de_criacao.split("/")[0],
             mes_criacao: data_de_criacao.split("/")[1],
