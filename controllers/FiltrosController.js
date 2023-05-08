@@ -22,7 +22,7 @@ class FiltroController {
         const vendasEncerradasMes = await sequelize.query(`SELECT count(*) AS 'vendas_abertas' from vendas WHERE status_pedido = 'ok'
         AND mes_criacao = '${mes}' AND ano_criacao = '${ano}'`);
 
-        if(!lucroMes)
+        if(!lucroMes[0])
         {
             return res.status(400).json({
                 erro: true,
@@ -30,7 +30,7 @@ class FiltroController {
             })
         }
 
-        if(!vendasAbertasMes)
+        if(!vendasAbertasMes[0])
         {
             return res.status(400).json({
                 erro: true,
