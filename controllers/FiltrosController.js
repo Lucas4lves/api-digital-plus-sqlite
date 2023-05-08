@@ -33,8 +33,6 @@ class FiltroController {
             })
         }
 
-        console.log(Object.values(lucroDia[0]));
-
         return res.status(200).json({
             resultado: {
                 lucro_dia : lucroDia[0],
