@@ -5,6 +5,11 @@ class FiltroController {
     {
         const { dia, mes, ano } = req.body;
 
+        console.log("--------------------------------------");
+        console.log(dia);
+        console.log(mes);
+        console.log(ano);
+        console.log("--------------------------------------");
         const lucroMes = await sequelize.query(`SELECT sum(lucro) AS 'lucro_total_mes' FROM vendas
         WHERE mes_criacao = '${mes}' AND ano_criacao = '${ano}'`);
 
