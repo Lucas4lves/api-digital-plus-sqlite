@@ -23,12 +23,12 @@ module.exports = {
     }])
 
     await queryInterface.bulkInsert('vendas', [{
-      data_de_criacao: "08/03/2023",
-      data_de_encerramento :"",
+      data_de_criacao: "2022/03/08",
+      data_de_encerramento :null,
       nome_cliente: "Marcelo",
       nb : "12345922",
       canal: "Construtora NS",
-      status_pagamento : "pendente",
+      status_pagamento : false,
       status_pedido: "pendente",
       valor_recebido: "500",
       custo: "80.79" ,
@@ -38,12 +38,12 @@ module.exports = {
       observacoes: "obs obs"
     },
     {
-      data_de_criacao: "16/03/2019",
-      data_de_encerramento :"",
+      data_de_criacao: "2019/03/16",
+      data_de_encerramento :null,
       nome_cliente: "Solange",
       nb : "9797865",
       canal: "Depósitos S.A",
-      status_pagamento : "pendente",
+      status_pagamento : false,
       status_pedido: "pendente",
       valor_recebido: "8000",
       custo: "80.79" ,
@@ -53,12 +53,12 @@ module.exports = {
       observacoes: "segue o plano"
     },
     {
-      data_de_criacao: "15/03/2017",
-      data_de_encerramento :"",
+      data_de_criacao: "2017/03/15",
+      data_de_encerramento :null,
       nome_cliente: "Lucas",
       nb : "36478234",
       canal: "Depósitos S.A",
-      status_pagamento : "pendente",
+      status_pagamento : false,
       status_pedido: "pendente",
       valor_recebido: "8000",
       custo: "80.79" ,
@@ -68,12 +68,12 @@ module.exports = {
       observacoes: "segue o plano"
     },
     {
-      data_de_criacao: "20/03/2022",
-      data_de_encerramento :"",
+      data_de_criacao: "2022/03/20",
+      data_de_encerramento :null,
       nome_cliente: "Mateus",
       nb : "236235162",
       canal: "Depósitos S.A",
-      status_pagamento : "pendente",
+      status_pagamento : false,
       status_pedido: "pendente",
       valor_recebido: "150",
       custo: "80.79" ,

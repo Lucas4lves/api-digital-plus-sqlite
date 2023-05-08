@@ -65,20 +65,30 @@ class VendaController
 
         let dataCriacaoFrag = pegarVariaveisDeData(data_de_criacao);
         let dataEncerramentoFrag = pegarVariaveisDeData(data_de_encerramento);
+        console.log(dataEncerramentoFrag);
+
+        const checkValue = (value) => {
+            if(!value)
+            {
+                return null
+            }
+
+            return value;
+        }
 
         let output = await VendaModel.create({
             data_de_criacao: formatarData(data_de_criacao),
             data_de_encerramento: formatarData(data_de_encerramento),
-            dia_criacao: dataCriacaoFrag.dia || "",
-            mes_criacao: dataCriacaoFrag.mes || "",
-            ano_criacao: dataCriacaoFrag.ano || "",
+            dia_criacao: checkValue(dataCriacaoFrag.dia) || "",
+            mes_criacao: checkValue(dataCriacaoFrag.mes) || "",
+            ano_criacao: checkValue(dataCriacaoFrag.ano) || "",
             dia_encerramento: dataEncerramentoFrag.dia || "",
             mes_encerramento: dataEncerramentoFrag.mes || "",
             ano_encerramento: dataEncerramentoFrag.ano || "", 
             nome_cliente,
             nb,
             canal,
-            status_pagamento: "pendente",
+            status_pagamento,
             status_pedido: "pendente",
             valor_recebido,
             custo,

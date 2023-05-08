@@ -1,12 +1,24 @@
 const formatarData = (data) => {
+            if(!data){
+                return null;
+            }
             let [dia, mes, ano] = data.split("/");
 
             return new Date(`${ano}/${mes}/${dia}`);
         }
 
 const pegarVariaveisDeData = (data) => {
-            let [dia, mes, ano] = data.split("/");
-            return {dia, mes, ano};
+            if(!data || data == "") {
+                return {
+                    dia : "",
+                    mes: "",
+                    ano: ""
+                };
+            }else {
+                let [dia, mes, ano] = data.split("/");
+                return {dia, mes, ano};
+            }
+            
         }
 
 const calcularLucro = (recebido, custo) => {
